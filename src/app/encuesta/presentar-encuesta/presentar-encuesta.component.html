@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ encuesta.title}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <swiper-container [loop]="true" [slidesPerView]="3" >
+    <swiper-slide *ngFor="let c of [1,1,1,1,1]">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle>
+          <ion-card-title>Awesome Title</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Awesome content
+        </ion-card-content>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+  </ion-content>
+

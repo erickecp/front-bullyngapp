@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Realizar encuesta: </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid >
+
+      <ion-row>
+        <ion-col *ngFor="let v of encuesta.videos" offset="2" size="8">
+          <ion-card [ngClass]="data.gradient" >
+            <ion-card-header class="ion-text-center">
+              <ion-card-title>{{v.title}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content >
+              <video #miVideo class="video-sty" width="100%" height="100%" autoplay controls >
+                <source src="../assets/vid1.mp4" type="video/mp4">
+              </video>
+            </ion-card-content>
+            <ion-button (click)="presentarEncuesta()" color="dark" class="ion-no-padding"  expand="block"  >
+              Empezar
+            </ion-button>
+
+          </ion-card>
+
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+
+
+
+</ion-content>

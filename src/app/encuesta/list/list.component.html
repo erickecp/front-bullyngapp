@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Encuestas</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-grid >
+    <ion-row>
+      <ion-col size="12" *ngFor="let encuesta of encuestas">
+        <ion-card>
+          <ion-grid >
+            <ion-row>
+              <ion-col size="4">
+                <ion-img src="https://observatorio.tec.mx/wp-content/uploads/2022/05/bigstock-Victim-Women-Depressed-Girl-I-260965918.jpeg"></ion-img>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item lines="none">
+                  <ion-grid fixed>
+                    <ion-row>
+                      <ion-col size="12">
+                        <h1>
+                          {{encuesta.title}}
+                        </h1>
+                      </ion-col>
+                      <ion-col size="12">
+                        <p class="ion-text-justify"
+                        >{{encuesta.description}}</p>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item>
+              </ion-col>
+              <ion-col size="2"  class="ion-align-self-center">
+                <ion-button [disabled]="!encuesta.preguntas.length" [routerLink]="'ver/'+encuesta.id">
+                  <ion-icon  slot="icon-only" size="large" name="play"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

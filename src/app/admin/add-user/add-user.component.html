@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{userId ? 'Editar Usuario' : 'Nuevo Usuario'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+
+      <ion-col offsetLg="3" sizeLg="6" offsetMd="2" sizeMd="8" sizeSm="12">
+        <ion-card class="ion-padding" mode="ios" >
+        <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">Nombre Completo<ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="fullName" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="email" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="password" type="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Rol</ion-label>
+            <ion-select mode="md" multiple   formControlName="roles"  placeholder="Elije un Rol">
+              <ion-select-option value="admin">Administrador</ion-select-option>
+              <ion-select-option value="user">Usuario Normal</ion-select-option>
+            </ion-select>
+           </ion-item>
+         <ion-item>
+          <ion-label>Sexo</ion-label>
+          <ion-select mode="md"  formControlName="sexo"  placeholder="Elije tu sexo">
+            <ion-select-option value="M">Masculino</ion-select-option>
+            <ion-select-option value="F">Femenino</ion-select-option>
+            <ion-select-option value="O">Otro</ion-select-option>
+          </ion-select>
+         </ion-item>
+          <ion-item>
+            <ion-label position="floating">Edad <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="edad" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Poblacion <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="poblacion" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Instituto <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="instituto" type="text"></ion-input>
+          </ion-item>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col offset="3" size="6">
+                <ion-button type="submit" expand="block" [disabled]="formUser.invalid">
+                  {{userId ? 'Guardar' : 'Agregar'}}
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </form>
+      </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true" class="background-opts" [ngStyle]="background">
+	<ion-header class="ion-no-border">
+		<ion-toolbar>
+			<ion-buttons slot="start">
+				<ion-menu-button></ion-menu-button>
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header>
+	<ion-grid class="ion-padding-horizontal">
+		<ion-row class="ion-padding-vertical">
+			<ion-col size="8" class="ion-padding-vertical">
+				<h1 class="title">Bullyng App</h1>
+				<ion-text class="mb">Aplicacion para detectar casos de Bullyn en Institutos.</ion-text>
+			</ion-col>
+		</ion-row>
+		<ion-row class="ion-padding-top">
+			<ion-col size="5" class="ion-padding-vertical">
+				<form [formGroup]="loginForm" (ngSubmit)="signIn()">
+					<ion-item lines="none" class="ion-no-padding">
+						<ion-input  placeholder="Email" type="email"  formControlName="email">
+						</ion-input>
+					</ion-item>
+					<div class="errors-container" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+						<ng-container *ngIf="loginForm.get('email')?.errors?.['required']">El Email es requerido</ng-container>
+						<ng-container *ngIf="loginForm.get('email')?.errors?.['invalidEmail']">El Email es invalido</ng-container>
+					</div>
+					<ion-item lines="none" class="ion-no-padding">
+						<ion-input placeholder="Contraseña" type="password"
+							formControlName="password"></ion-input>
+					</ion-item>
+					<div class="errors-container" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+						<ng-container *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es requerida</ng-container>
+						<ng-container *ngIf="loginForm.get('password')?.errors?.['invalidPassword']">{{loginForm.get('password')?.errors?.['message']}}</ng-container>
+					</div>
+
+					<ion-button [disabled]="loginForm.invalid" class="action-button" expand="block" fill="solid" color="primary" type="submit">
+						<span>Iniciar Sesión</span>
+					</ion-button>
+				</form>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+</ion-content>
