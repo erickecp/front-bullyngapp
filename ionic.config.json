@@ -1,0 +1,7 @@
+{
+  "name": "bullyngApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
