@@ -3,20 +3,44 @@
     <ion-title>{{ encuesta.title}} </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
 
-  <swiper-container [loop]="true" [slidesPerView]="3" >
-    <swiper-slide *ngFor="let c of [1,1,1,1,1]">
+<ion-content >
+
+  <swiper-container  [loop]="false" [allowSlidePrev]="false" [slidesPerView]="1" >
+    <swiper-slide *ngFor="let question of preguntas">
       <ion-card>
         <ion-card-header>
-          <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle>
-          <ion-card-title>Awesome Title</ion-card-title>
+          <!-- <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle> -->
+          <ion-card-title>{{question.title}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          Awesome content
+
+
+
+          <ion-list [formGroup]="formAnswer" >
+            <ion-radio-group
+            formControlName="answer">
+              <ion-item *ngFor="let answer of question.answers">
+                <ion-label>{{ answer.result }}</ion-label>
+                <ion-radio [value]="answer"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+
+            <ion-button [disabled]="formAnswer.invalid"  (click)="nextSave()" color="dark" class="ion-no-padding">
+              &nbsp;guardar respuesta&nbsp;
+            </ion-button>
+
+          </ion-list>
+
+
         </ion-card-content>
       </ion-card>
     </swiper-slide>
+
+    <!-- <div class="swiper-button-next"></div> -->
+
   </swiper-container>
+
+
   </ion-content>
 
