@@ -29,9 +29,14 @@ export class PresentarEncuestaComponent  implements OnInit {
   encuesta: encuesta = {
   };
   preguntas : preguntas[] = [];
+  private swipere!: Swiper;
 
   ngOnInit() {
     Swiper.use([Pagination]);
+  }
+
+  ionViewDidEnter() {
+    this.swipere = new Swiper('.swiper-container');
   }
 
   formAnswer: FormGroup = this.fb.group({
@@ -69,6 +74,7 @@ export class PresentarEncuestaComponent  implements OnInit {
     console.log(this.formAnswer.value.answer);
     this.respuestas.push(this.formAnswer.value.answer);
     console.log('Esto se va guardando',this.respuestas);
+    this.swipere.slideNext();
     this.formAnswer.reset();
   }
 
