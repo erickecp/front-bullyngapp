@@ -19,4 +19,6 @@ export class EncuestasService {
   getEncuesta(id: string){
     return this.http.get(`${myUrl}encuesta/${id}`);
   }
+
+
 }

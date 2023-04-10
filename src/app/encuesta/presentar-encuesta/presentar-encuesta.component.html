@@ -26,8 +26,10 @@
               </ion-item>
             </ion-radio-group>
 
+            <ion-button (click)="return()" color="dark" class="ion-no-padding"> &nbsp;Regresar&nbsp;</ion-button>
+
             <ion-button [disabled]="formAnswer.invalid"  (click)="nextSave()" color="dark" class="ion-no-padding">
-              &nbsp;guardar respuesta&nbsp;
+              &nbsp;{{titleNextOrSave}}&nbsp;
             </ion-button>
 
           </ion-list>

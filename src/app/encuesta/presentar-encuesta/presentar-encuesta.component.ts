@@ -31,6 +31,8 @@ export class PresentarEncuestaComponent  implements OnInit {
   preguntas : preguntas[] = [];
   private swipere!: Swiper;
 
+  questionsLengh!: number ;
+
   ngOnInit() {
     Swiper.use([Pagination]);
   }
@@ -45,6 +47,8 @@ export class PresentarEncuestaComponent  implements OnInit {
   });
 
   respuestas: any = [];
+  countQuestions = 0;
+  titleNextOrSave = 'Siguiente';
   id :any;
   constructor(
     private actRoute: ActivatedRoute,
@@ -65,17 +69,47 @@ export class PresentarEncuestaComponent  implements OnInit {
     this.encuestaS.getEncuesta(id).subscribe((encuesta: any) => {
       this.encuesta =  encuesta;
       this.preguntas = encuesta.preguntas;
+      this.questionsLengh = this.preguntas.length;
       console.log('Son las encustas',encuesta);
       console.log('Son las preguntas',this.preguntas);
+      console.log('La cantidad de preguntas',this.questionsLengh);
     })
   }
 
   async nextSave(){
-    console.log(this.formAnswer.value.answer);
-    this.respuestas.push(this.formAnswer.value.answer);
+
+    if(this.respuestas[this.countQuestions]){
+      this.respuestas[this.countQuestions] = this.formAnswer.value.answer;
+    }else{
+      this.respuestas.push(this.formAnswer.value.answer);
+    }
+
+    if( this.countQuestions < this.questionsLengh ){
+      this.titleNextOrSave = 'Siguiente';
+      this.swipere.slideNext();
+      this.countQuestions++;
+    }
+      this.titleNextOrSave = 'Guardar Respuestas';
+      this.swipere.slideNext();
+      this.formAnswer.reset();
+      console.log(this.countQuestions);
     console.log('Esto se va guardando',this.respuestas);
-    this.swipere.slideNext();
-    this.formAnswer.reset();
+
+    if(this.countQuestions == this.questionsLengh){
+      this.route.navigateByUrl('/home/encuesta');
+    }
+
+  }
+
+  async return(){
+    if( this.countQuestions > 0){
+      this.titleNextOrSave = 'Siguiente';
+      this.swipere.slidePrev();
+      this.countQuestions--;
+      console.log('numero negativo', this.countQuestions);
+      this.formAnswer.reset();
+    }
+
   }
 
 
