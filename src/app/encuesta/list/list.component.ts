@@ -19,6 +19,7 @@ export class ListComponent  implements OnInit {
       (encuestas: any) => {
         console.log(encuestas);
         this.encuestas = encuestas;
+        this.encuestas.splice(4)
       }
     )
   }

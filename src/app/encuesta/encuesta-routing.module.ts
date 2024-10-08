@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { VerEncuestaComponent } from './ver-encuesta/ver-encuesta.component';
 import { PresentarEncuestaComponent } from './presentar-encuesta/presentar-encuesta.component';
+import { InstructionsComponent } from './instructions/instructions.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,10 @@ const routes: Routes = [
     path: 'ver/:id',
     component: VerEncuestaComponent
   },
-
+  {
+    path: 'instructions/:id',
+    component: InstructionsComponent
+  },
   {
     path: 'ver/:id/presentar',
     component: PresentarEncuestaComponent

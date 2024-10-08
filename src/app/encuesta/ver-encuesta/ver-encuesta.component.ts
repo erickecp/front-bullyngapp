@@ -43,9 +43,9 @@ export class VerEncuestaComponent  implements OnInit {
   }
 
   presentarEncuesta(){
-    console.log(this.miVideo);
-    this.miVideo.nativeElement.pause();
-    this.route.navigateByUrl(`home/encuesta/ver/${this.id}/presentar`);
+    // console.log(this.miVideo);
+    // this.miVideo.nativeElement.pause();
+    this.route.navigateByUrl(`home/encuesta/ver/5/presentar`);
   }
 
 

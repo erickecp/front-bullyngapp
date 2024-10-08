@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { HomePage } from './home.page';
-import { EncuestaPageModule } from '../encuesta/encuesta.module';
 
 const routes: Routes = [
   {

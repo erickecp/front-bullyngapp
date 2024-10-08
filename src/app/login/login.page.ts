@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { emailValidator } from '../validators/email.validator';
 import { passwordValidator } from '../validators/password.validator';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,7 @@ export class LoginPage implements OnInit {
     backgroundImage: 'url(https://img.freepik.com/foto-gratis/companeros-amigos-bolsa-escuela-educacion_53876-137717.jpg?w=996&t=st=1678490957~exp=1678491557~hmac=117fed44ae9e02b33f4c6980b3efe01dda33f565b77056b99d1549d54688a20f)'
   };
   constructor(
+    private navCtrl: NavController,
     private formBuilder: FormBuilder,
     private authS: AuthService
     ) { }
@@ -28,6 +31,8 @@ export class LoginPage implements OnInit {
 
 
   signIn() {
+    this.navCtrl.navigateRoot('/home/encuesta');
+    return;
     if (this.loginForm.valid) {
       this.authS.login(this.loginForm.value).subscribe(
         resp => {

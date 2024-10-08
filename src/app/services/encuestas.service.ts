@@ -14,9 +14,9 @@ export class EncuestasService {
 
 
   getEncuestas(){
-    return this.http.get(`${myUrl}encuesta`);
+    return this.http.get(`${myUrl}subsurveys`);
   }
   getEncuesta(id: string){
-    return this.http.get(`${myUrl}encuesta/${id}`);
+    return this.http.get(`${myUrl}subsurveys/${id}`);
   }
 }

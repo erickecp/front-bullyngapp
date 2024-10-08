@@ -11,6 +11,9 @@ import { ListComponent } from './list/list.component';
 import { VerEncuestaComponent } from './ver-encuesta/ver-encuesta.component';
 import { DomSanitizePipe } from '../pipes/safepipe.pipe';
 import { PresentarEncuestaComponent } from './presentar-encuesta/presentar-encuesta.component';
+import { CardEncuestaComponent } from '../components/card-encuesta/card-encuesta.component';
+import { ComponentsModule } from '../components/components.module';
+import { InstructionsComponent } from './instructions/instructions.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -19,10 +22,10 @@ import { PresentarEncuestaComponent } from './presentar-encuesta/presentar-encue
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-
+    ComponentsModule,
     IonicModule,
     EncuestaPageRoutingModule
   ],
-  declarations: [EncuestaPage, ListComponent,VerEncuestaComponent, DomSanitizePipe, PresentarEncuestaComponent]
+  declarations: [EncuestaPage, ListComponent,VerEncuestaComponent, DomSanitizePipe, PresentarEncuestaComponent,InstructionsComponent, ]
 })
 export class EncuestaPageModule {}
