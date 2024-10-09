@@ -1,9 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>{{ encuesta.title}} </ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-header [header]="encuesta.title"></app-header>
 <ion-content >
 
   <swiper-container class="swiper-container"  [loop]="false" [allowSlidePrev]="false" [slidesPerView]="1" >
@@ -11,17 +6,15 @@
       <ion-card>
         <ion-card-header>
           <!-- <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle> -->
-          <ion-card-title>{{question.title}}</ion-card-title>
+          <ion-card-title>{{question.question}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-
-
 
           <ion-list [formGroup]="formAnswer" >
             <ion-radio-group
             formControlName="answer">
               <ion-item *ngFor="let answer of question.answers">
-                <ion-label>{{ answer.result }}</ion-label>
+                <ion-label>{{ answer }}</ion-label>
                 <ion-radio [value]="answer"></ion-radio>
               </ion-item>
             </ion-radio-group>

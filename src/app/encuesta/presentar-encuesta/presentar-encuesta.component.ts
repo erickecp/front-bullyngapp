@@ -28,7 +28,7 @@ export class PresentarEncuestaComponent  implements OnInit {
   @ViewChild('swiperContainer') swiperContainer!: ElementRef;
   encuesta: encuesta = {
   };
-  preguntas : preguntas[] = [];
+  preguntas : any[] = [];
   private swipere!: Swiper;
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class PresentarEncuestaComponent  implements OnInit {
   async getEncuesta(id: string) {
     this.encuestaS.getEncuesta(id).subscribe((encuesta: any) => {
       this.encuesta =  encuesta;
-      this.preguntas = encuesta.preguntas;
+      this.preguntas = encuesta.subsurveys[0].questions;
       console.log('Son las encustas',encuesta);
       console.log('Son las preguntas',this.preguntas);
     })

@@ -1,3 +1,21 @@
-<p>
-  primervideo works!
-</p>
+<app-header header="Video"></app-header>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col offset="2" size="8">
+        <ion-card class="ion-padding">
+          <video #miVideo class="video-sty" width="100%" height="100%" autoplay controls >
+            <source src="https://www.youtube.com/watch?v=ViqIZXnBQeo" type="video/mp4">
+          </video>
+          <div class="ion-text-center">
+            <ion-button (click)="presentarEncuesta()"  color="dark" >
+              Aceptar
+            </ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+

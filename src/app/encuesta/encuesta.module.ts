@@ -14,6 +14,7 @@ import { PresentarEncuestaComponent } from './presentar-encuesta/presentar-encue
 import { CardEncuestaComponent } from '../components/card-encuesta/card-encuesta.component';
 import { ComponentsModule } from '../components/components.module';
 import { InstructionsComponent } from './instructions/instructions.component';
+import { PrimervideoComponent } from './primervideo/primervideo.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -26,6 +27,6 @@ import { InstructionsComponent } from './instructions/instructions.component';
     IonicModule,
     EncuestaPageRoutingModule
   ],
-  declarations: [EncuestaPage, ListComponent,VerEncuestaComponent, DomSanitizePipe, PresentarEncuestaComponent,InstructionsComponent, ]
+  declarations: [EncuestaPage, ListComponent,VerEncuestaComponent,PrimervideoComponent, DomSanitizePipe, PresentarEncuestaComponent,InstructionsComponent, ]
 })
 export class EncuestaPageModule {}
