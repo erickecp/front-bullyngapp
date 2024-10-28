@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +8,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeaderComponent  implements OnInit {
   @Input() header: any ='';
-  constructor() { }
+  name = '';
+  constructor(
+    private _authS: AuthService,
+  ) {
+    const u = this._authS.getUser();
+    console.log(u);
+    if (u) {
+      this.name = u.user_name || u.school_name || u.admin_name;
+    }
+
+   }
 
   ngOnInit() {}
 

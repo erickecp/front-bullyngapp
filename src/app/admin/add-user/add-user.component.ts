@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-user',
@@ -11,14 +12,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AddUserComponent  implements OnInit {
   formUser!: FormGroup;
+  userSchool: any = {};
   userId = null;
   constructor(
     private fb: FormBuilder,
     private userS: UsersService,
+    private _authS: AuthService,
     private activeRoute: ActivatedRoute,
     private alertS: AlertsService,
     private route: Router
   ) {
+
+    this.userSchool = this._authS.getUser();
+    console.log(this.userSchool);
     this.activeRoute.params.subscribe(
       (params) => {
         this.userId = params['id'];
@@ -42,20 +48,17 @@ export class AddUserComponent  implements OnInit {
 
   generateForm(){
     this.formUser = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      fullName: ['', Validators.required],
-      roles: [[], Validators.required],
-      poblacion: ['', Validators.required],
-      instituto: ['', Validators.required],
-      sexo: ['', Validators.required],
-      edad: ['', Validators.required],
+      school_name: ['', Validators.required],
+      key_school: ['', Validators.required],
+      kind_school: ['', Validators.required],
+      password: [, Validators.required],
+      admin_id: [this.userSchool.id, Validators.required],
     });
 
   }
 
   onSubmit(){
-    this.formUser.get('roles') as FormArray;
+    // this.formUser.get('roles') as FormArray;
     console.log(this.formUser.value)
     if(this.formUser.invalid){
       return;
@@ -77,6 +80,7 @@ export class AddUserComponent  implements OnInit {
     } else {
       this.userS.postUser(this.formUser.value).subscribe(
         (resp :  any ) => {
+          console.log(resp);
           this.userS.setUser(resp);
           this.alertS.generateToast({
             message: 'Usuario creado con Exito',
@@ -88,17 +92,31 @@ export class AddUserComponent  implements OnInit {
           });
           this.formUser.reset();
           this.route.navigate(['/home/admin']);
-        }, error => {
-          this.alertS.generateToast({
-            message: `ERROR: ${error.message}`,
-            duration: 1200,
-            position: 'top',
-            animated: true,
-            icon: 'alert-circle',
-            color: 'danger',
-          })
-        }
-      );
+        });
+      // this.userS.postUser(this.formUser.value).subscribe(
+      //   (resp :  any ) => {
+      //     this.userS.setUser(resp);
+      //     this.alertS.generateToast({
+      //       message: 'Usuario creado con Exito',
+      //       duration: 1200,
+      //       position: 'top',
+      //       animated: true,
+      //       icon: 'people',
+      //       color: 'success',
+      //     });
+      //     this.formUser.reset();
+      //     this.route.navigate(['/home/admin']);
+      //   }, error => {
+      //     this.alertS.generateToast({
+      //       message: `ERROR: ${error.message}`,
+      //       duration: 1200,
+      //       position: 'top',
+      //       animated: true,
+      //       icon: 'alert-circle',
+      //       color: 'danger',
+      //     })
+      //   }
+      //);
     }
 
 

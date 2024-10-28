@@ -6,9 +6,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-    children: [{
+    children: [
+    {
       path: 'admin',
       loadChildren: () => import('../admin/admin.module').then(m=>m.AdminPageModule)
+    },
+    {
+      path: 'school',
+      loadChildren: () => import('../school/school.module').then(m=>m.SchoolPageModule)
     },
     {
       path: 'encuesta',

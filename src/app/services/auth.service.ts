@@ -10,32 +10,20 @@ const myUrl = environment.urlApi;
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class AuthService {
   token = '';
   user: any = {};
-
-
 
   constructor(
     private http: HttpClient,
     private navCtrl: NavController) { }
 
-
   login(body: login){
-    return this.http.post(`${myUrl}auth/login`, body).pipe(
+    return this.http.post(`${myUrl}loginA`, body).pipe(
       map((resp: any ) => {
         this.guardaToken(resp.token);
-        this.guardaUsuario({
-          id: resp.id,
-          instituto: resp.instituto,
-          poblacion: resp.pobleacion,
-          sexo: resp.sexo,
-          fullName: resp.fullName,
-          roles: resp.roles
-        });
-        if ( resp.roles[0] === 'admin') {
+        this.guardaUsuario(resp.admin);
+        if ( resp.admin) {
           this.navCtrl.navigateRoot('/home/admin');
         } else {
           this.navCtrl.navigateRoot('/login');
@@ -44,13 +32,56 @@ export class AuthService {
         return resp;
       })
     )
+  }
+  loginSchool(body: any){
+    return this.http.post(`${myUrl}loginS`, body).pipe(
+      map((resp: any ) => {
+        console.log(resp);
 
+        this.guardaToken(resp.token);
+        this.guardaUsuario(resp.school);
+        if ( resp.school) {
+          this.navCtrl.navigateRoot('/home/school');
+        } else {
+          this.navCtrl.navigateRoot('/login');
+        }
+
+        return resp;
+      })
+    )
+  }
+  loginUser(body: any){
+    return this.http.post(`${myUrl}loginU`, body).pipe(
+      map((resp: any ) => {
+        console.log(resp);
+
+        this.guardaToken(resp.token);
+        this.guardaUsuario(resp.user);
+        if ( resp.user) {
+          this.navCtrl.navigateRoot('/home/encuesta');
+        } else {
+          this.navCtrl.navigateRoot('/login');
+        }
+
+        return resp;
+      })
+    )
+  }
+
+  getUser(){
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user;
   }
 
 
+  logout(){
+    localStorage.clear();
+    this.navCtrl.navigateRoot('/login');
+  }
+
   guardaUsuario(user: any) {
     this.user = user;
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user) || '{}');
   }
 
   guardaToken(token: string) {

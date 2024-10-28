@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EncuestasService } from 'src/app/services/encuestas.service';
@@ -20,7 +21,6 @@ export class PrimervideoComponent  implements OnInit {
       console.log(params);
       this.id = params['id'];
       this._surveyS.getEncuesta(this.id).subscribe(survey => {
-        console.log(survey);
         this.survey = survey;
 
       })

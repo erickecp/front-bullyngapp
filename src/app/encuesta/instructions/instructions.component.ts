@@ -23,7 +23,7 @@ export class InstructionsComponent  implements OnInit {
   }
 
   firstVideo(id: string){
-    this._router.navigate(['home/encuesta/firstvideo/' + id]);
+    this._router.navigate([`home/encuesta/ver/${id}/presentar`]);
   }
 
 }

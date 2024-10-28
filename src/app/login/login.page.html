@@ -13,16 +13,39 @@
 				<ion-text class="mb">Aplicacion para detectar casos de Bullyn en Institutos.</ion-text>
 			</ion-col>
 		</ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-grid >
+          <ion-row>
+            <ion-col size="4">
+              <ion-button  (click)="changeType(1)">
+                Admin
+              </ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="changeType(2)">
+                School
+              </ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="changeType(3)">
+                Student
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
 		<ion-row class="ion-padding-top">
-			<ion-col size="5" class="ion-padding-vertical">
+			<ion-col size="6" class="ion-padding-vertical">
 				<form [formGroup]="loginForm" (ngSubmit)="signIn()">
 					<ion-item lines="none" class="ion-no-padding">
-						<ion-input  placeholder="Email" type="email"  formControlName="email">
+						<ion-input  placeholder="Username" type="text"  formControlName="user_name">
 						</ion-input>
 					</ion-item>
-					<div class="errors-container" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
-						<ng-container *ngIf="loginForm.get('email')?.errors?.['required']">El Email es requerido</ng-container>
-						<ng-container *ngIf="loginForm.get('email')?.errors?.['invalidEmail']">El Email es invalido</ng-container>
+					<div class="errors-container" *ngIf="loginForm.get('user_name')?.invalid && (loginForm.get('user_name')?.dirty || loginForm.get('email')?.touched)">
+						<ng-container *ngIf="loginForm.get('user_name')?.errors?.['required']">El Email es requerido</ng-container>
+						<ng-container *ngIf="loginForm.get('user_name')?.errors?.['invalidEmail']">El Email es invalido</ng-container>
 					</div>
 					<ion-item lines="none" class="ion-no-padding">
 						<ion-input placeholder="Contraseña" type="password"
@@ -34,7 +57,7 @@
 					</div>
 
 					<ion-button [disabled]="loginForm.invalid" class="action-button" expand="block" fill="solid" color="primary" type="submit">
-						<span>Iniciar Sesión</span>
+						<span>Iniciar Sesión - {{ type === 1 ? 'Admin' : type === 2 ? 'School' : 'Student'}}</span>
 					</ion-button>
 				</form>
 			</ion-col>

@@ -11,17 +11,17 @@
         <ion-card class="ion-padding" mode="ios" >
         <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
           <ion-item>
-            <ion-label position="floating">Nombre de escuela<ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required formControlName="school_name" type="text"></ion-input>
+            <ion-label position="floating">Nombre de usuario <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input required formControlName="user_name" type="text"></ion-input>
           </ion-item>
-          <ion-item>
+          <!-- <ion-item>
             <ion-label position="floating">Codigo de escuela <ion-text color="danger">*</ion-text></ion-label>
             <ion-input required formControlName="key_school" type="text"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating">Tipo de escuela <ion-text color="danger">*</ion-text></ion-label>
             <ion-input required formControlName="kind_school" type="text"></ion-input>
-          </ion-item>
+          </ion-item>-->
           <ion-item>
             <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
             <ion-input required formControlName="password" type="password"></ion-input>
@@ -55,6 +55,7 @@
           </ion-item> -->
           <ion-grid fixed>
             <ion-row>
+              {{formUser.valid}}
               <ion-col offset="3" size="6">
                 <ion-button type="submit" expand="block" [disabled]="formUser.invalid">
                   {{userId ? 'Guardar' : 'Agregar'}}

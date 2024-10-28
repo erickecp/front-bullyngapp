@@ -8,6 +8,7 @@ const myUrl = environment.urlApi;
 export class UsersService {
 
   getUpdateUsers: EventEmitter<any> = new EventEmitter();
+  getStudent: EventEmitter<any> = new EventEmitter();
   getUpdateUser: EventEmitter<any> = new EventEmitter();
   getremoveUser: EventEmitter<any> = new EventEmitter();
 
@@ -16,11 +17,20 @@ export class UsersService {
   ) { }
 
   postUser(body: any ) {
-    return this.http.post(`${myUrl}auth/register`, body);
+    return this.http.post(`${myUrl}newSchool`, body);
   }
 
   getAllUsers(){
-    return this.http.get(`${myUrl}auth/all`);
+    return this.http.get(`${myUrl}getSchools`);
+  }
+  getAllStudents(){
+    return this.http.get(`${myUrl}getUsers`);
+  }
+  newStudent(body: any){
+    return this.http.post(`${myUrl}newUser`, body);
+  }
+  removeStudent(id: string){
+    return this.http.delete(`${myUrl}deleteUser/${id}`);
   }
 
   getSearch(term: string){
@@ -28,15 +38,15 @@ export class UsersService {
   }
 
   getUser(id: any){
-    return this.http.get(`${myUrl}auth/${id}`);
+    return this.http.get(`${myUrl}getSchool/${id}`);
   }
 
   updateUser(id: any, body: any){
-    return this.http.put(`${myUrl}auth/${id}`, body);
+    return this.http.put(`${myUrl}updateSchool/${id}`, body);
   }
 
   remove(id: string){
-    return this.http.patch(`${myUrl}auth/active/${id}`, {});
+    return this.http.delete(`${myUrl}deleteSchool/${id}`);
   }
 
 
@@ -52,6 +62,9 @@ export class UsersService {
 
   setUser(user: any) {
     this.getUpdateUsers.emit(user);
+  }
+  setStudent(user: any) {
+    this.getStudent.emit(user);
   }
   removeUser(id: any) {
     this.getremoveUser.emit(id);

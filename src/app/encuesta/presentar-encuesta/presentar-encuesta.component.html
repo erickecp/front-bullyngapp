@@ -1,38 +1,189 @@
 <app-header [header]="encuesta.title"></app-header>
 <ion-content >
 
-  <swiper-container class="swiper-container"  [loop]="false" [allowSlidePrev]="false" [slidesPerView]="1" >
-    <swiper-slide *ngFor="let question of preguntas">
-      <ion-card>
+
+  <swiper-container class="swiper-container"  [loop]="false" [allowSlidePrev]="false"  [allowSlideNext]="false" [slidesPerView]="1" >
+    <swiper-slide *ngFor="let question of preguntas; let i = index">
+
+
+      <ng-container [ngSwitch]="question.category">
+        <!-- the same view can be shown in more than one case -->
+          <ion-grid fixed>
+            {{position}}
+            {{preguntas.length}}
+            <ion-row>
+              <ion-col offsetLg="2" sizeLg="8" sizeMd="10" offsetMd="1">
+                <ion-card class="ion-padding">
+                  <div *ngSwitchCase="'video'">
+
+                    <app-primervideo ></app-primervideo>
+                    <div >
+                      <ion-button   (click)="nextSave(question, 'video')" color="dark" class="ion-no-padding">
+                        &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : 'Guardar respuesta'}}&nbsp;
+                      </ion-button>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'opcion'">
+                    <ion-card-header>
+                      <ion-card-title>{{i + 1 + '.- '+question.question}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-list  [formGroup]="formAnswer" >
+                      <ion-radio-group
+                      formControlName="answer">
+                        <ion-item *ngFor="let answer of question.answers">
+                          <ion-label>{{answer.label }}</ion-label>
+                          <ion-radio slot="end" [value]="answer"> </ion-radio>
+                        </ion-item>
+                      </ion-radio-group>
+                      </ion-list>
+                      <div >
+                        <ion-button [disabled]="formAnswer.invalid && question.category !== 'multiple'"  (click)="nextSave(question, 'opcion')" color="dark" class="ion-no-padding">
+                          &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : 'Guardar respuesta'}}&nbsp;
+                        </ion-button>
+                      </div>
+                  </div>
+                  <div *ngSwitchCase="'multiple'">
+                    <ion-card-header>
+                      <ion-card-title>{{i + 1 + '.- '+question.question}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-list>
+                      <ion-item (click)="onClick(answer)" *ngFor="let answer of question.answers;let i = index">
+                        <ion-label>{{ answer.label }}</ion-label>
+                        <ion-checkbox slot="start"[(ngModel)]="answer.value"></ion-checkbox>
+                      </ion-item>
+                    </ion-list>
+                    <div >
+                      <ion-button [disabled]="!respuestasmultiples.length"  (click)="nextSave(question, 'multiple')" color="dark" class="ion-no-padding">
+                        &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : 'Guardar respuesta'}}&nbsp;
+                      </ion-button>
+                    </div>
+                  </div>
+                  <div *ngSwitchCase="'escala'">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col size="3">
+
+                        </ion-col>
+                        <ion-col *ngFor="let n of [1,2,3,4,5]" size="1" >{{n}}</ion-col>
+                      </ion-row>
+                      <ion-row >
+                        <ion-col class="ion-align-self-center" size="3"> {{question.question}}</ion-col>
+                        <ion-col  size="5" >
+                          <ion-list [formGroup]="formAnswer" >
+                            <ion-radio-group formControlName="answer">
+                              <ion-radio  *ngFor="let q of [1,2,3,4,5]; let idx = index" class="ion-margin" [value]="q" aria-label="Custom checkbox that is checked"></ion-radio>
+                            </ion-radio-group>
+                          </ion-list>
+                        </ion-col>
+                        <ion-col  class="ion-align-self-center" size="4"> {{question.question_2}}</ion-col>
+                      </ion-row>
+                      <div >
+                        <ion-button [disabled]="formAnswer.invalid && question.category !== 'multiple'"   (click)="nextSave(question, 'escala')" color="dark" class="ion-no-padding">
+                          &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : 'Guardar respuesta'}}&nbsp;
+                        </ion-button>
+                      </div>
+                    </ion-grid>
+                  </div>
+
+
+
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+        <!--default case when there are no matches -->
+        <div *ngSwitchDefault>.noatch..</div>
+      </ng-container>
+
+
+        <!-- <ion-grid fixed>
+        <ion-row>
+    <ion-col offset="2" size="8" *ngIf="!question.ruta">
+      <ion-card >
         <ion-card-header>
-          <!-- <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle> -->
-          <ion-card-title>{{question.question}}</ion-card-title>
+          <ion-card-title>{{i + 1 + '.- '+question.question}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
 
-          <ion-list [formGroup]="formAnswer" >
+          <b>{{preguntas.length}}</b>
+
+          <ion-list  [formGroup]="formAnswer" >
             <ion-radio-group
+            *ngIf="!question.type"
             formControlName="answer">
               <ion-item *ngFor="let answer of question.answers">
-                <ion-label>{{ answer }}</ion-label>
-                <ion-radio [value]="answer"></ion-radio>
+                <ion-label>{{answer }}</ion-label>
+                <ion-radio slot="end" [value]="answer"> </ion-radio>
               </ion-item>
             </ion-radio-group>
 
-            <ion-button [disabled]="formAnswer.invalid"  (click)="nextSave()" color="dark" class="ion-no-padding">
-              &nbsp;guardar respuesta&nbsp;
-            </ion-button>
+            <ion-grid  *ngIf="question.type">
+              <ion-row>
+                <ion-col size="3">
+
+                </ion-col>
+                <ion-col *ngFor="let n of [1,2,3,4,5]" size="1" >{{n}}</ion-col>
+              </ion-row>
+              <ion-row >
+                <ion-col class="ion-align-self-center" size="3"> {{question.title}}</ion-col>
+                <ion-col  size="5" >
+                  <ion-list [formGroup]="formAnswer" >
+                    <ion-radio-group formControlName="answer">
+                      <ion-radio  *ngFor="let q of question.answers" class="ion-margin" [value]="q" aria-label="Custom checkbox that is checked"></ion-radio>
+                    </ion-radio-group>
+                  </ion-list>
+                </ion-col>
+                <ion-col  class="ion-align-self-center" size="4"> {{question.title_2}}</ion-col>
+              </ion-row>
+            </ion-grid>
+
+
+
+
+            <div *ngIf="position < preguntas.length-1">
+              <ion-button [disabled]="formAnswer.invalid"  (click)="nextSave(question)" color="dark" class="ion-no-padding">
+                &nbsp;guardar respuesta&nbsp;
+              </ion-button>
+            </div>
+
+            <div *ngIf="position === preguntas.length -1">
+              <ion-button  (click)="sendSurvey()" color="dark" class="ion-no-padding">
+                &nbsp;Siguiente&nbsp;
+              </ion-button>
+            </div>
 
           </ion-list>
 
 
         </ion-card-content>
       </ion-card>
+    </ion-col>
+    <ion-col offset="2" size="8" *ngIf="question.ruta">
+      <ion-card class="ion-padding">
+          <video style="border-radius: 10px;" #miVideo class="video-sty" width="100%" height="100%" autoplay controls >
+            <source src="https://www.youtube.com/watch?v=ViqIZXnBQeo" type="video/mp4">
+          </video>
+          <div class="ion-text-center">
+            <ion-button color="dark" (click)="nextSave(question)" >
+              Aceptar
+            </ion-button>
+          </div>
+      </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
     </swiper-slide>
 
     <!-- <div class="swiper-button-next"></div> -->
 
   </swiper-container>
+
 
 
   </ion-content>
