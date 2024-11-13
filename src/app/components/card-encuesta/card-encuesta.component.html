@@ -1,15 +1,17 @@
-<ion-card (click)="goToSurvey(encuesta.id)" class="fondo">
+<ion-card [style]="encuesta.realizado ? 'cursor: default' : ''" (click)="goToSurvey(encuesta)" class="fondo">
 
-<h1>{{encuesta.title}}</h1>
+<h1 class="ion-text-center">{{encuesta.title}}</h1>
+
 
 </ion-card >
 <ion-grid >
   <ion-row>
     <ion-col  size="6">
-    <p>Tiempo dedicado: </p>
+    <p>Encuensta {{i}} </p>
     </ion-col>
     <ion-col class="ion-text-end" size="6" >
-    <p>Avance: 78% </p>
+
+  <p class="danger">{{encuesta.realizado ? 'Realizada' : ''}}</p>
     </ion-col>
   </ion-row>
 </ion-grid>

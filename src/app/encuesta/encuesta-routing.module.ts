@@ -6,6 +6,7 @@ import { VerEncuestaComponent } from './ver-encuesta/ver-encuesta.component';
 import { PresentarEncuestaComponent } from './presentar-encuesta/presentar-encuesta.component';
 import { InstructionsComponent } from './instructions/instructions.component';
 import { PrimervideoComponent } from './primervideo/primervideo.component';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,18 +15,22 @@ const routes: Routes = [
   },
   {
     path: 'ver/:id',
+    canActivate: [authGuard],
     component: VerEncuestaComponent
   },
   {
     path: 'instructions/:id',
+    canActivate: [authGuard],
     component: InstructionsComponent
   },
   {
     path: 'firstvideo/:id',
+    canActivate: [authGuard],
     component: PrimervideoComponent
   },
   {
     path: 'ver/:id/presentar',
+    canActivate: [authGuard],
     component: PresentarEncuestaComponent
   },
 

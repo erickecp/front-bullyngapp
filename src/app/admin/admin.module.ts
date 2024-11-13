@@ -9,6 +9,9 @@ import { AdminPageRoutingModule } from './admin-routing.module';
 import { AdminPage } from './admin.page';
 import { ListComponent } from './list/list.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { ComponentsModule } from "../components/components.module";
+import { ResponsesComponent } from './responses/responses.component';
+import { ResBySurveyComponent } from './res-by-survey/res-by-survey.component';
 
 @NgModule({
   imports: [
@@ -17,8 +20,9 @@ import { AddUserComponent } from './add-user/add-user.component';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    AdminPageRoutingModule
-  ],
-  declarations: [AdminPage, ListComponent, AddUserComponent]
+    AdminPageRoutingModule,
+    ComponentsModule
+],
+  declarations: [AdminPage, ListComponent, AddUserComponent, ResponsesComponent, ResBySurveyComponent]
 })
 export class AdminPageModule {}

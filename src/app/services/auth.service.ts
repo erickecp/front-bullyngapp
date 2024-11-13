@@ -72,13 +72,19 @@ export class AuthService {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user;
   }
+  geToken(){
+    const tk = localStorage.getItem('token');
+    if(tk){
+      return true;
+    }else{
+      return null;
+    }
 
-
+  }
   logout(){
     localStorage.clear();
     this.navCtrl.navigateRoot('/login');
   }
-
   guardaUsuario(user: any) {
     this.user = user;
     localStorage.setItem('user', JSON.stringify(user) || '{}');

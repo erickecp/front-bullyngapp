@@ -2,11 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EncuestasService } from 'src/app/services/encuestas.service';
 import { encuesta, Qust } from '../../interfaces/login.interface';
-
+import { forkJoin } from 'rxjs';
 import Swiper, { SwiperOptions, Pagination} from 'swiper';
 import { preguntas } from 'src/app/interfaces/preguntas.interface';
 import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { url } from 'inspector';
+import { AuthService } from 'src/app/services/auth.service';
+import { ResponseService } from 'src/app/services/response.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 
  //* Inicializar el Swiper
 
@@ -29,6 +32,7 @@ export class PresentarEncuestaComponent  implements OnInit {
   @ViewChild('swiperContainer') swiperContainer!: ElementRef;
   encuesta: any = {
   };
+  user:any = {};
   preguntas : Qust[] = [];
   position = 0;
   v = [];
@@ -51,8 +55,11 @@ export class PresentarEncuestaComponent  implements OnInit {
   constructor(
     private actRoute: ActivatedRoute,
     private route: Router,
+    private _authS: AuthService,
     private encuestaS: EncuestasService,
     private fb: FormBuilder,
+    private _alertS: AlertsService,
+    private _respS: ResponseService
   ) {
     this.actRoute.params.subscribe(params => {
       this.id = params['id'];
@@ -60,6 +67,8 @@ export class PresentarEncuestaComponent  implements OnInit {
       this.getEncuesta(this.id);
 
     })
+    this.user = this._authS.getUser();
+    console.log('El usuario es', this.user);
 
    }
 
@@ -204,6 +213,53 @@ export class PresentarEncuestaComponent  implements OnInit {
   }
 
   sendSurvey(){
+
+    const responses = this.respuestas.map((resp:any) => ({
+      school_users_id: this.user.id,
+      question_id: resp.idQ,
+      response: resp.answers,
+      survey_id: this.encuesta.id
+    }));
+
+    const requests = responses.map((response:any) =>
+      this._respS.newResponse(response)
+    );
+
+    const surveyUser = {school_user_id :this.user.id, survey_id: this.encuesta.id}
+    this._respS.newUserSurvey(surveyUser).subscribe({
+      next: () => {
+        forkJoin(requests).subscribe({
+          next: () => {
+            this._alertS.generateToast({
+              message: 'Encuesta enviada correctamente',
+              color:'success',
+              duration: 1200,
+            });
+          },
+          error: (error) => {
+            console.log('Error al enviar encuesta', error);
+            this._alertS.generateToast({
+              message: 'Error al enviar encuesta',
+              color: 'danger',
+              duration: 1200,
+            });
+          }
+        }
+    );
+      },
+      error: (error) => {
+        console.log('Error al enviar encuesta', error);
+        this._alertS.generateToast({
+          message: 'Error al enviar encuesta',
+          color: 'danger',
+          duration: 1200,
+        });
+      }
+    })
+
+    console.log('eniviandop info', this.respuestas);
+
+
 
   }
 

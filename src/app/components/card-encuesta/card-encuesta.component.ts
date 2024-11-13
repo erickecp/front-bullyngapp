@@ -8,14 +8,17 @@ import { Router } from '@angular/router';
 })
 export class CardEncuestaComponent  implements OnInit {
 @Input() encuesta: any = {};
+@Input() i: any = 0;
   constructor(
     private _router: Router
   ) { }
 
   ngOnInit() {}
 
-  goToSurvey(id: number){
-    this._router.navigateByUrl(`home/encuesta/instructions/${id}`)
+  goToSurvey(encuesta: any){
+    if(!encuesta.realizado){
+      this._router.navigateByUrl(`home/encuesta/instructions/${encuesta.id}`)
+    }
   }
 
 }

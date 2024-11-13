@@ -9,26 +9,26 @@
 	<ion-grid class="ion-padding-horizontal">
 		<ion-row class="ion-padding-vertical">
 			<ion-col size="8" class="ion-padding-vertical">
-				<h1 class="title">Bullyng App</h1>
+				<h1 class="title">Be health Lab</h1>
 				<ion-text class="mb">Aplicacion para detectar casos de Bullyn en Institutos.</ion-text>
 			</ion-col>
 		</ion-row>
     <ion-row>
-      <ion-col size="6">
+      <ion-col sizeXs="12" sizeSm="6" sizeLg="4" >
         <ion-grid >
           <ion-row>
             <ion-col size="4">
-              <ion-button  (click)="changeType(1)">
+              <ion-button [color]="type === 1 ? 'tertiary' : 'primary'" (click)="changeType(1)">
                 Admin
               </ion-button>
             </ion-col>
             <ion-col size="4">
-              <ion-button (click)="changeType(2)">
+              <ion-button [color]="type === 2 ? 'tertiary' : 'primary'" (click)="changeType(2)">
                 School
               </ion-button>
             </ion-col>
             <ion-col size="4">
-              <ion-button (click)="changeType(3)">
+              <ion-button [color]="type === 3 ? 'tertiary' : 'primary'" (click)="changeType(3)">
                 Student
               </ion-button>
             </ion-col>
@@ -37,7 +37,7 @@
       </ion-col>
     </ion-row>
 		<ion-row class="ion-padding-top">
-			<ion-col size="6" class="ion-padding-vertical">
+			<ion-col sizeXs="12" sizeSm="6" sizeLg="4"  class="ion-padding-vertical ion-margin-bottom" >
 				<form [formGroup]="loginForm" (ngSubmit)="signIn()">
 					<ion-item lines="none" class="ion-no-padding">
 						<ion-input  placeholder="Username" type="text"  formControlName="user_name">

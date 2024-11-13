@@ -1,0 +1,30 @@
+<app-header header="Resultados por encuesta
+"></app-header>
+
+<ion-content [fullscreen]="true">
+  <div
+    class="table-responsive m-1" *ngFor="let i of repsosesTranform"
+  >
+  <h2>{{ i .user_name}}</h2>
+    <table
+      class="table  align-middle  table-bordered caption-top"
+    >
+    <caption>Resultados de preguntas</caption>
+      <thead class="table-light" >
+        <tr class="align-middle">
+          <th scope="col" class="bg-blue" *ngFor="let q of i.results"> {{ q.question.question }}</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr class="">
+          <td *ngFor="let q of i.results" scope="row">{{ q.response }}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!repsosesTranform.length" >
+    <h1 class="text-center mt-4"> Aun, no hay resultados </h1>
+  </div>
+
+</ion-content>

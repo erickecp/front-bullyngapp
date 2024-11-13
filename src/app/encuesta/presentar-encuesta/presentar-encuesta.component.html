@@ -25,7 +25,7 @@
                   </div>
                   <div *ngSwitchCase="'opcion'">
                     <ion-card-header>
-                      <ion-card-title>{{i + 1 + '.- '+question.question}}</ion-card-title>
+                      <ion-card-title>{{question.question}}</ion-card-title>
                     </ion-card-header>
                     <ion-list  [formGroup]="formAnswer" >
                       <ion-radio-group

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,6 +10,7 @@ const routes: Routes = [
     children: [
     {
       path: 'admin',
+      canActivate: [authGuard],
       loadChildren: () => import('../admin/admin.module').then(m=>m.AdminPageModule)
     },
     {
@@ -17,6 +19,7 @@ const routes: Routes = [
     },
     {
       path: 'encuesta',
+      canActivate: [authGuard],
       loadChildren: () => import('../encuesta/encuesta.module').then(m=>m.EncuestaPageModule)
     }
 

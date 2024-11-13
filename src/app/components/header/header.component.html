@@ -1,11 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{header}}</ion-title>
-    <ion-buttons  slot="end">
-      <ion-button >
+    <ion-buttons   slot="end">
+      <ion-button class="ion-text-capitalize">
         {{name}}
+      </ion-button>
+      <ion-button *ngIf="type==='admin'" (click)="toResponses()" class="btn-color" >
+        Resultados
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end"   >
+      <ion-button    (click)="logout()" >
+        <ion-icon slot="start" name="power"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-
 </ion-header>

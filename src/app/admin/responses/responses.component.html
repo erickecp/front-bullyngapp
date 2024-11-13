@@ -1,0 +1,17 @@
+<app-header header="Resultados" ></app-header>
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let enc of encuestas">
+      <ion-card-header>
+        <ion-card-title>{{enc.title}}</ion-card-title>
+        <ion-card-content>
+          {{enc.description}}
+        </ion-card-content>
+        <ion-button (click)="verResultados(enc)" size="small">
+          Ver resultados
+        </ion-button>
+      </ion-card-header>
+    </ion-card>
+  </ion-list>
+
+</ion-content>

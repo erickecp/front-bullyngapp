@@ -42,9 +42,7 @@ export class ListComponent  implements OnInit {
 
   }
 
-  logout(){
-    this.authS.logout();
-  }
+
 
   ngOnInit() {
     this.usersS.getAllUsers().subscribe(
