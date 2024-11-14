@@ -33,6 +33,7 @@ export class PresentarEncuestaComponent  implements OnInit {
   encuesta: any = {
   };
   user:any = {};
+  verVideo: boolean = false;
   preguntas : Qust[] = [];
   position = 0;
   v = [];
@@ -40,6 +41,11 @@ export class PresentarEncuestaComponent  implements OnInit {
 
   ngOnInit() {
     Swiper.use([Pagination]);
+  }
+
+  recibirDatos(datos: boolean): void {
+    console.log('Datos recibidos del hijo:', datos);
+    this.verVideo = datos;
   }
 
   ionViewDidEnter() {

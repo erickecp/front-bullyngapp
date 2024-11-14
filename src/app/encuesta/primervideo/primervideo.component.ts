@@ -1,5 +1,5 @@
 import { map } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EncuestasService } from 'src/app/services/encuestas.service';
 
@@ -9,6 +9,9 @@ import { EncuestasService } from 'src/app/services/encuestas.service';
   styleUrls: ['./primervideo.component.scss'],
 })
 export class PrimervideoComponent  implements OnInit {
+  @Output() datosEnviados = new EventEmitter<boolean>();
+  @Input() video: null | string = '';
+  videoLoaded = false;
   id: string = '';
   survey: any = {};
 
@@ -28,12 +31,16 @@ export class PrimervideoComponent  implements OnInit {
     });
   }
 
-  presentarEncuesta(){
-    // console.log(this.miVideo);
-    // this.miVideo.nativeElement.pause();
-    this._router.navigateByUrl(`home/encuesta/ver/${this.id}/presentar`);
+  isNextButtonEnabled = false;
+
+  playVideo(video: HTMLVideoElement): void {
+    video.play();
   }
 
+  onVideoEnded(): void {
+    this.isNextButtonEnabled = true;
+    this.datosEnviados.emit(this.isNextButtonEnabled);
+  }
 
   ngOnInit() {}
 

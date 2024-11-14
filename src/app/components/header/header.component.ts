@@ -41,4 +41,7 @@ export class HeaderComponent  implements OnInit {
   toResponses(){
     this._router.navigateByUrl('/home/admin/responses');
   }
+  toHome(){
+    this._router.navigateByUrl('/home/admin');
+  }
 }

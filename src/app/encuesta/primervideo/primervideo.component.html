@@ -1,7 +1,10 @@
 
-          <video #miVideo class="video-sty" width="100%" height="100%" autoplay controls >
-            <source src="https://www.youtube.com/watch?v=ViqIZXnBQeo" type="video/mp4">
+          <video #myVideo (ended)="onVideoEnded()"  class="video-sty" width="100%" height="100%"   >
+            <source src="./assets/videos/Cap1_p1.mp4" type="video/mp4">
           </video>
+          <button (click)="playVideo(myVideo)">Reproducir Video</button>
+
+
 
 
 

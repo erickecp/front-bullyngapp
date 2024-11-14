@@ -9,17 +9,15 @@
       <ng-container [ngSwitch]="question.category">
         <!-- the same view can be shown in more than one case -->
           <ion-grid fixed>
-            {{position}}
-            {{preguntas.length}}
             <ion-row>
               <ion-col offsetLg="2" sizeLg="8" sizeMd="10" offsetMd="1">
                 <ion-card class="ion-padding">
                   <div *ngSwitchCase="'video'">
 
-                    <app-primervideo ></app-primervideo>
+                    <app-primervideo [video]="question.url" (datosEnviados)="recibirDatos($event)" ></app-primervideo>
                     <div >
-                      <ion-button   (click)="nextSave(question, 'video')" color="dark" class="ion-no-padding">
-                        &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : 'Guardar respuesta'}}&nbsp;
+                      <ion-button [disabled]="!verVideo"  (click)="nextSave(question, 'video')" color="dark" class="ion-no-padding">
+                        &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : 'Siguiente'}}&nbsp;
                       </ion-button>
                     </div>
                   </div>
@@ -44,7 +42,7 @@
                   </div>
                   <div *ngSwitchCase="'multiple'">
                     <ion-card-header>
-                      <ion-card-title>{{i + 1 + '.- '+question.question}}</ion-card-title>
+                      <ion-card-title>{{question.question}}</ion-card-title>
                     </ion-card-header>
                     <ion-list>
                       <ion-item (click)="onClick(answer)" *ngFor="let answer of question.answers;let i = index">
@@ -60,26 +58,28 @@
                   </div>
                   <div *ngSwitchCase="'escala'">
                     <ion-grid>
-                      <ion-row>
-                        <ion-col size="3">
+                      <ion-col size="12">
+                        ¿Qué emoción has sentido tú al presenciar esta escena?
+                      </ion-col>
+                      <ion-row class="ion-align-items-start">
 
-                        </ion-col>
-                        <ion-col *ngFor="let n of [1,2,3,4,5]" size="1" >{{n}}</ion-col>
+                        <ion-col size="4" ></ion-col>
+                        <ion-col  *ngFor="let n of [1,2,3,4,5]" size="1" >{{n}}</ion-col>
                       </ion-row>
                       <ion-row >
                         <ion-col class="ion-align-self-center" size="3"> {{question.question}}</ion-col>
-                        <ion-col  size="5" >
+                        <ion-col  size="6" >
                           <ion-list [formGroup]="formAnswer" >
                             <ion-radio-group formControlName="answer">
                               <ion-radio  *ngFor="let q of [1,2,3,4,5]; let idx = index" class="ion-margin" [value]="q" aria-label="Custom checkbox that is checked"></ion-radio>
                             </ion-radio-group>
                           </ion-list>
                         </ion-col>
-                        <ion-col  class="ion-align-self-center" size="4"> {{question.question_2}}</ion-col>
+                        <ion-col  class="ion-align-self-center" size="3"> {{question.question_2}}</ion-col>
                       </ion-row>
                       <div >
                         <ion-button [disabled]="formAnswer.invalid && question.category !== 'multiple'"   (click)="nextSave(question, 'escala')" color="dark" class="ion-no-padding">
-                          &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : 'Guardar respuesta'}}&nbsp;
+                          &nbsp;{{ position === preguntas.length-1 ? 'Enviar encuesta' : (question.url ? 'Iniciar encuesta' : 'Guardar respuesta')}}&nbsp;
                         </ion-button>
                       </div>
                     </ion-grid>

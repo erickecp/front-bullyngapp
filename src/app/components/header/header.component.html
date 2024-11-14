@@ -8,6 +8,9 @@
       <ion-button *ngIf="type==='admin'" (click)="toResponses()" class="btn-color" >
         Resultados
       </ion-button>
+      <ion-button *ngIf="type==='admin'" (click)="toHome()" class="btn-color" >
+        Home
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="end"   >
       <ion-button    (click)="logout()" >

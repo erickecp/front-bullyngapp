@@ -44,14 +44,27 @@ export class LoginPage implements OnInit {
 
     if(this.type === 1){
         this.authS.login(this.loginForm.value).subscribe(
-          resp => {
-            console.log(resp);
-            this.alertS.generateToast({
-              message: 'Ingreso exitoso',
-              color: 'success',
-              duration: 1200,
-            })
+          {
+            next: (user) => {
+              this.alertS.generateToast({
+                message: 'Ingreso exitoso',
+                color: 'success',
+                duration: 1200,
+              })
+
+            },
+            error: (err) => {
+              console.error(err);
+              this.alertS.generateToast({
+                message: `Error al ingresar ${err.error.error}`,
+                color: 'danger',
+                duration: 1200,
+              });
+              this.loginForm.reset();
+            }
           }
+
+
         );
 
     } else if(this.type === 2){
@@ -62,13 +75,24 @@ export class LoginPage implements OnInit {
       }
 
       this.authS.loginSchool(newObject).subscribe(
-        resp => {
-          console.log(resp)
-          this.alertS.generateToast({
-            message: 'Ingreso exitoso',
-            color: 'success',
-            duration: 1200,
-          })
+        {
+          next: (user) => {
+            this.alertS.generateToast({
+              message: 'Ingreso exitoso',
+              color: 'success',
+              duration: 1200,
+            })
+
+          },
+          error: (err) => {
+            console.error(err);
+            this.alertS.generateToast({
+              message: `Error al ingresar ${err.error.error}`,
+              color: 'danger',
+              duration: 1200,
+            });
+            this.loginForm.reset();
+          }
         }
       );
 

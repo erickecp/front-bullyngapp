@@ -36,5 +36,5 @@ export interface Qust {
   question?: string ;
   question_2?: string ;
   survey_id?: string;
-  url?: string;
+  url: string | null;
 }

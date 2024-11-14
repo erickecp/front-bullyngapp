@@ -33,7 +33,6 @@ export class AddUserComponent  implements OnInit {
           this.userS.getUser(this.userId).subscribe(
             (user) => {
               console.log(user);
-              this.formUser.get('password')?.disable();
               this.formUser.reset(user);
             });
         }
