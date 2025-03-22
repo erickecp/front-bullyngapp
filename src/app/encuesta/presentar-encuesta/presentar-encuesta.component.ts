@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EncuestasService } from 'src/app/services/encuestas.service';
 import { encuesta, Qust } from '../../interfaces/login.interface';
@@ -58,6 +58,9 @@ export class PresentarEncuestaComponent  implements OnInit {
   respuestas: any = [];
   respuestasmultiples: any[] = [];
   id :any;
+   private _router = inject(Router);
+    private _activeR= inject(ActivatedRoute);
+
   constructor(
     private actRoute: ActivatedRoute,
     private route: Router,
@@ -173,7 +176,7 @@ export class PresentarEncuestaComponent  implements OnInit {
     console.log(q);
     this.position +=1;
     if(this.position >= this.preguntas.length){
-      console.log('Encuesta completa perro');
+
       this.sendSurvey()
       return;
     }
@@ -264,6 +267,7 @@ export class PresentarEncuestaComponent  implements OnInit {
     })
 
     console.log('eniviandop info', this.respuestas);
+    this._router.navigate([`home/encuesta/encuestafinal/${this.id}/1`]);
 
 
 

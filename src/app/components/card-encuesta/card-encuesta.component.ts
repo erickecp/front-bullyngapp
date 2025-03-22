@@ -18,6 +18,7 @@ export class CardEncuestaComponent  implements OnInit {
   goToSurvey(encuesta: any){
     if(!encuesta.realizado){
       this._router.navigateByUrl(`home/encuesta/instructions/${encuesta.id}`)
+      //this._router.navigateByUrl(`home/encuestaform/${encuesta.id}`)
     }
   }
 

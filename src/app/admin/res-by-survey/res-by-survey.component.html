@@ -2,6 +2,11 @@
 "></app-header>
 
 <ion-content [fullscreen]="true">
+
+ <ion-button *ngIf="repsosesTranform.length > 0" class="ion-text-capitalize" (click)="exportToExcel()" >
+   Descargar datos
+   <ion-icon name="cloud-download-outline" slot="end"></ion-icon>
+ </ion-button>
   <div
     class="table-responsive m-1" *ngFor="let i of repsosesTranform"
   >

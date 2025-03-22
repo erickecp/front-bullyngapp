@@ -28,7 +28,6 @@ export class AuthService {
         } else {
           this.navCtrl.navigateRoot('/login');
         }
-
         return resp;
       })
     )

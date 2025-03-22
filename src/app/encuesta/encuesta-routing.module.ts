@@ -7,6 +7,7 @@ import { PresentarEncuestaComponent } from './presentar-encuesta/presentar-encue
 import { InstructionsComponent } from './instructions/instructions.component';
 import { PrimervideoComponent } from './primervideo/primervideo.component';
 import { authGuard } from '../guards/auth.guard';
+import { EncuestaFormComponent } from './encuesta-form/encuesta-form.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,16 @@ const routes: Routes = [
     path: 'instructions/:id',
     canActivate: [authGuard],
     component: InstructionsComponent
+  },
+  {
+    path: 'encuestaform/:id',
+    canActivate: [authGuard],
+    component: EncuestaFormComponent
+  },
+  {
+    path: 'encuestafinal/:id/:f',
+    canActivate: [authGuard],
+    component: EncuestaFormComponent
   },
   {
     path: 'firstvideo/:id',

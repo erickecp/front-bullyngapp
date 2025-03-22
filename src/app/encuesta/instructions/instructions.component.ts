@@ -17,13 +17,14 @@ export class InstructionsComponent  implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._activeR.params.subscribe(params => {
+    this._activeR.params.subscribe((params: any) => {
       this.id = params['id'];
     });
   }
 
   firstVideo(id: string){
-    this._router.navigate([`home/encuesta/ver/${id}/presentar`]);
+    // this._router.navigate([`home/encuesta/ver/${id}/presentar`]);
+     this._router.navigate([`home/encuesta/encuestaform/${id}`]);
   }
 
 }
