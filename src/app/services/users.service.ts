@@ -48,6 +48,9 @@ export class UsersService {
   remove(id: string){
     return this.http.delete(`${myUrl}deleteSchool/${id}`);
   }
+  updateUserStudent(id: any, body: any){
+    return this.http.put(`${myUrl}updateUser/${id}`, body);
+  }
 
 
   /*
